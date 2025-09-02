@@ -14,20 +14,28 @@ class UserService {
         return await axios.get("/user/get-loggedin-user");
     }
 
+    static async getAllUser() {
+        return await axios.get("/user/get-all-user");
+    }
+
+    static async deleteUser(userId) {
+        return await axios.delete(`/user/delete/${userId}`);
+    }
+
     // Check
-    static async isAuthenticate() {
+    static isAuthenticate() {
         try {
-            const token = localStorage.getItem("token")
-            const info = jwtDecode(token);
-            if (info)
+            const token = localStorage.getItem("token");
+            if (token) {
                 return true;
+            }
             return false;
         } catch (error) {
             return false;
         }
     }
 
-    static async isUser() {
+    static isUser() {
         try {
             const token = localStorage.getItem("token")
             const {role} = jwtDecode(token);
@@ -37,9 +45,9 @@ class UserService {
         }
     }
 
-    static async isAdmin() {
+    static isAdmin() {
         try {
-            const token = localStorage.getItem("token")
+            const token = localStorage.getItem("token");
             const {role} = jwtDecode(token);
             return role === "ADMIN" && this.isAuthenticate();
         } catch (error) {

@@ -65,7 +65,7 @@ export const getLoggedinUser = async (req, res) => {
 
 export const getAllUser = async (req, res) => {
     try {
-        const users = await User.find({role: "USER"});
+        const users = await User.find({role: "USER"}).select("-password -role");
 
         if (users.length <= 0) {
             return res.status(200).json({success: true, message: "There Is No User", users: null});

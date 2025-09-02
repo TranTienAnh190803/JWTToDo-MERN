@@ -3,8 +3,12 @@ import { Link, useNavigate } from "react-router-dom";
 import UserService from "../Services/UserService";
 
 export default function Login() {
+  document.title = "Login";
   const navigate = useNavigate();
-  const [loginForm, setLoginForm] = useState({});
+  const [loginForm, setLoginForm] = useState({
+    username: "",
+    password: "",
+  });
 
   const handleInputChange = (e) => {
     const name = e.target.name;

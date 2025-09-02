@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import UserService from "../Services/UserService";
 
 export default function Registration() {
+  document.title = "Registration";
   const navigate = useNavigate();
   const [registrationForm, setRegistrationForm] = useState({});
 
