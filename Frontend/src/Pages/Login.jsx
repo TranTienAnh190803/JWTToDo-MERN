@@ -1,7 +1,9 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import UserService from "../Services/UserService";
+
 export default function Login() {
+  const navigate = useNavigate();
   const [loginForm, setLoginForm] = useState({});
 
   const handleInputChange = (e) => {
@@ -17,8 +19,12 @@ export default function Login() {
     if (loginResult.success) {
       const token = loginResult.jwtToken;
       localStorage.setItem("token", token);
+      alert(loginResult.message);
+      navigate("/");
+      window.location.reload();
+    } else {
+      alert(loginResult.message);
     }
-    alert(loginResult.message);
   };
 
   return (
@@ -46,9 +52,6 @@ export default function Login() {
               onChange={handleInputChange}
             />
           </div>
-          <button className="border hover:bg-gray-500 hover:text-gray-50 cursor-pointer">
-            Login
-          </button>
           <div>
             <span>Don't have an account? </span>{" "}
             <Link
@@ -58,6 +61,9 @@ export default function Login() {
               Create account
             </Link>
           </div>
+          <button className="p-3 border hover:bg-gray-500 hover:text-gray-50 cursor-pointer">
+            Login
+          </button>
         </div>
       </form>
     </div>
