@@ -19,7 +19,7 @@ export default function Home() {
   };
 
   const logout = () => {
-    localStorage.removeItem("token");
+    UserService.logout();
     navigate("/login");
   };
 
@@ -33,7 +33,7 @@ export default function Home() {
         <h1 className="text-3xl font-bold cursor-pointer">ToDo App</h1>
         {user ? (
           <div>
-            <span className="mr-5">Hello {user.fullname}</span>{" "}
+            <span className="mr-5">Hello {user.username}</span>{" "}
             <button className="bg-red-500 p-3 cursor-pointer" onClick={logout}>
               Logout
             </button>
@@ -49,7 +49,7 @@ export default function Home() {
           UserService.isAdmin() ? (
             <AdminHome />
           ) : (
-            <UserHome />
+            <UserHome user={user} />
           )
         ) : (
           <div className="flex justify-center">

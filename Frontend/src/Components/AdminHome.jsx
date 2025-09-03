@@ -39,7 +39,7 @@ export default function AdminHome() {
 
   return (
     <div className="flex justify-center">
-      <div className="w-1/2 bg-white rounded-3xl py-10 px-20">
+      <div className="w-8/9 bg-white rounded-3xl py-10 px-20">
         <div className="w-full">
           <h1 className="text-3xl font-bold">Admin</h1>
           <hr className="mb-10" />

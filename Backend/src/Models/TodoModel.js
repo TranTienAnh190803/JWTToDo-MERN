@@ -10,6 +10,14 @@ const todoSchema = new mongoose.Schema({
         enum: ["In progress", "Done"],
         required: true
     },
+    addedDate: {
+        type: Date,
+        required: true
+    },
+    completedDate: {
+        type: Date,
+        required: false
+    },
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",

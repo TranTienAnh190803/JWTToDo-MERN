@@ -54,6 +54,30 @@ class UserService {
             return false;
         }
     }
+
+    static isTokenValid() {
+        try {
+            const token = localStorage.getItem("token");
+            const payload = jwtDecode(token);
+            const exp = payload.exp * 1000;
+            if (Date.now() > exp) {
+                alert("Token has expired");
+                return true;
+            }
+            return false;
+        } catch (error) {
+            const token = localStorage.getItem("token");
+            if (token) {
+                alert(error.message);
+                return true;
+            }
+            return false;
+        }
+    }
+
+    static logout() {
+        localStorage.removeItem("token");
+    }
 }
 
 export default UserService;

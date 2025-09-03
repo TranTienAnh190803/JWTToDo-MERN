@@ -4,7 +4,7 @@ export const addWork = async (req, res) => {
     let newWork = req.body;
 
     try {
-        newWork = {...newWork, user: req.user.userId, state: "In progress"};
+        newWork = {...newWork, user: req.user.userId, state: "In progress", addedDate: Date.now()};
         await Todo.create(newWork);
         return res.status(201).json({success: true, message: "Add New Work Successfully"});
     } catch (error) {
@@ -14,7 +14,7 @@ export const addWork = async (req, res) => {
 
 export const getWorks = async (req, res) => {
     try {
-        const works = await Todo.find({user: req.user.userId}).select("work state");
+        const works = await Todo.find({user: req.user.userId}).select("-user");
 
         if (works.length <= 0) {
             return res.status(200).json({success: true, message: "There Is No Work To Do", works: null})
@@ -66,7 +66,7 @@ export const verifyWork = async (req, res) => {
     const {workId} = req.params;
 
     try {
-        const selectedWork = await Todo.findOneAndUpdate({_id: workId, user: req.user.userId}, {state: "Done"}, {new: true, runValidators: true});
+        const selectedWork = await Todo.findOneAndUpdate({_id: workId, user: req.user.userId}, {state: "Done", completedDate: Date.now()}, {runValidators: true});
 
         if (selectedWork && selectedWork.state === "In progress") {
             return res.status(200).json({success: true, message: "Work Done", data: selectedWork})
