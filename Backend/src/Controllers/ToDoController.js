@@ -50,7 +50,7 @@ export const deleteWork = async (req, res) => {
     const {workId} = req.params;
 
     try {
-        const selectedWork = await Todo.findOneAndDelete({_id: workId, user: req.user.userId})
+        const selectedWork = await Todo.findOneAndDelete({_id: workId, user: req.user.userId});
 
         if (selectedWork) {
             return res.status(200).json({success: true, message: "Delete Successfully"});

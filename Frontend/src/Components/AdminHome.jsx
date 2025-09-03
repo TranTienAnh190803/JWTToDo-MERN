@@ -15,8 +15,6 @@ export default function AdminHome() {
         setUsers(fetchResult.users);
       } else if (fetchResult.success && !fetchResult.users) {
         setNoUser({ check: true, message: fetchResult.message });
-      } else {
-        alert(fetchResult.message);
       }
     }
   };
@@ -45,7 +43,7 @@ export default function AdminHome() {
           <hr className="mb-10" />
           {noUser.check ? (
             <div>
-              <h1 className="text-red-500 text-5xl font-bold">
+              <h1 className="text-red-500 text-5xl font-bold text-center">
                 {noUser.message}
               </h1>
             </div>
@@ -64,8 +62,8 @@ export default function AdminHome() {
               <tbody>
                 {users.map((value, index) => {
                   return (
-                    <tr>
-                      <td className="p-2 border">{index}</td>
+                    <tr key={value._id}>
+                      <td className="p-2 border">{index + 1}</td>
                       <td className="p-2 border">{value.username}</td>
                       <td className="p-2 border">{value.fullname}</td>
                       <td className="p-2 border">{value.age}</td>
