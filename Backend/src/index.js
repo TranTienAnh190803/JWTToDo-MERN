@@ -18,6 +18,9 @@ app.use(jwtAuthentication);
 app.use("/user", userRoute);
 app.use("/todo", todoRoute);
 
+// Cron Jobs
+import "./CronJobs/CheckDeadline.js";
+
 app.get("/", (req, res) => {
     return res.send("<h1>Hello world</h1>")
 })

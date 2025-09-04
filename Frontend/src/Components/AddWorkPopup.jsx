@@ -6,7 +6,14 @@ export default function Popup() {
   const { setPopup, addSuccess, setAddSuccess } = useContext(HomeContext);
   const [work, setWork] = useState({
     work: "",
+    deadline: null,
   });
+
+  const handleInputChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setWork({ ...work, [name]: value });
+  };
 
   const handleAddWork = async (e) => {
     e.preventDefault();
@@ -42,16 +49,24 @@ export default function Popup() {
         <form onSubmit={handleAddWork}>
           <h1 className="text-3xl font-bold">Add Work</h1>
           <hr className="mb-10" />
-          <div className="mb-10">
+          <div className="mb-5">
             <p className="font-bold mb-2">Work: </p>
             <input
               type="text"
               name="work"
               className="border px-2 py-1 w-full"
               value={work.work}
-              onChange={(e) => {
-                setWork({ [e.target.name]: e.target.value });
-              }}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="mb-10">
+            <p className="font-bold mb-2">Deadline: </p>
+            <input
+              type="datetime-local"
+              name="deadline"
+              className="border px-2 py-1 w-full"
+              value={work.deadline}
+              onChange={handleInputChange}
             />
           </div>
           <button className="w-full py-3 bg-green-600 text-white hover:bg-gray-500 hover:text-black cursor-pointer">

@@ -7,10 +7,14 @@ const todoSchema = new mongoose.Schema({
     },
     state: {
         type: String,
-        enum: ["In progress", "Done"],
+        enum: ["In progress", "Done", "Overdue"],
         required: true
     },
     addedDate: {
+        type: Date,
+        required: true
+    },
+    deadline: {
         type: Date,
         required: true
     },

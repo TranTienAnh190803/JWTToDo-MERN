@@ -32,31 +32,37 @@ export default function Login() {
   };
 
   return (
-    <div>
-      <form onSubmit={handleLogin}>
-        <h1 className="text-3xl font-medium">Login</h1>
+    <div
+      className={`h-screen flex justify-center items-center bg-[url('/assets/Cat.jpg')] bg-cover bg-center`}
+    >
+      <form
+        onSubmit={handleLogin}
+        className="border-2 rounded-2xl p-8 bg-white/50"
+      >
+        <h1 className="text-5xl font-bold text-center">Login</h1>
+        <hr className="mt-3 mb-8" />
         <div>
-          <div>
-            <label>Username: </label>
+          <div className="flex justify-between items-center my-3">
+            <label className="font-medium mr-5">Username: </label>
             <input
               type="text"
               name="username"
-              className="border"
+              className="border px-2 py-1"
               value={loginForm.username}
               onChange={handleInputChange}
             />
           </div>
-          <div>
-            <label>Password: </label>
+          <div className="flex justify-between items-center my-3">
+            <label className="font-medium mr-5">Password: </label>
             <input
               type="password"
               name="password"
-              className="border"
+              className="border px-2 py-1"
               value={loginForm.password}
               onChange={handleInputChange}
             />
           </div>
-          <div>
+          <div className="my-5">
             <span>Don't have an account? </span>{" "}
             <Link
               to={"/register"}
@@ -65,7 +71,7 @@ export default function Login() {
               Create account
             </Link>
           </div>
-          <button className="p-3 border hover:bg-gray-500 hover:text-gray-50 cursor-pointer">
+          <button className="w-full p-3 bg-gray-800 text-white hover:bg-gray-500 hover:text-gray-50 cursor-pointer">
             Login
           </button>
         </div>

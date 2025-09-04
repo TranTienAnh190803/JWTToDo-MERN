@@ -4,9 +4,13 @@ export const addWork = async (req, res) => {
     let newWork = req.body;
 
     try {
-        newWork = {...newWork, user: req.user.userId, state: "In progress", addedDate: Date.now()};
-        await Todo.create(newWork);
-        return res.status(201).json({success: true, message: "Add New Work Successfully"});
+        const deadline = new Date(newWork.deadline).getTime();
+        if (deadline > Date.now()) {
+            newWork = {...newWork, user: req.user.userId, state: "In progress", addedDate: Date.now()};
+            await Todo.create(newWork);
+            return res.status(201).json({success: true, message: "Add New Work Successfully"});
+        }
+        return res.status(400).json({success: false, message: "Deadline Have To Be After The Current Time"});
     } catch (error) {
         return res.status(500).json({success: false, message: error.message});
     }
@@ -66,13 +70,22 @@ export const verifyWork = async (req, res) => {
     const {workId} = req.params;
 
     try {
-        const selectedWork = await Todo.findOneAndUpdate({_id: workId, user: req.user.userId}, {state: "Done", completedDate: Date.now()}, {runValidators: true});
+        const selectedWork = await Todo.findOne({_id: workId, user: req.user.userId});
+        const deadline = new Date(selectedWork.deadline).getTime();
 
-        if (selectedWork && selectedWork.state === "In progress") {
-            return res.status(200).json({success: true, message: "Work Done", data: selectedWork})
+        if (selectedWork && !selectedWork.completedDate && Date.now() < deadline) {
+            selectedWork.state = "Done";
+            selectedWork.completedDate = Date.now();
+            await selectedWork.save();
+            return res.status(200).json({success: true, message: "Work Done"})
         }
-        else if (selectedWork && selectedWork.state !== "In progress") {
+        else if (selectedWork && selectedWork.completedDate) {
             return res.status(400).json({success: false, message: "Work Already Done"});
+        }
+        else if (selectedWork && !selectedWork.completedDate && Date.now() >= deadline) {
+            selectedWork.completedDate = Date.now();
+            selectedWork.save();
+            return res.status(200).json({success: true, message: "Work Is Overdue"}); 
         }
         else {
             return res.status(404).json({success: false, message: "Not Found"});

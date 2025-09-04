@@ -73,6 +73,7 @@ export default function UserHome({ user }) {
                   <td className="p-2 border">#</td>
                   <td className="p-2 border">Work</td>
                   <td className="p-2 border">Added Date</td>
+                  <td className="p-2 border">Deadline</td>
                   <td className="p-2 border">State</td>
                   <td className="p-2 border">Completed Date</td>
                   <td className="p-2 border"></td>
@@ -89,7 +90,22 @@ export default function UserHome({ user }) {
                           value.addedDate
                         )} - ${ToDoService.getTime(value.addedDate)}`}
                       </td>
-                      <td className="p-2 border">{value.state}</td>
+                      <td className="p-2 border">{`${ToDoService.getDate(
+                        value.deadline
+                      )} - ${ToDoService.getTime(value.deadline)}`}</td>
+                      <td className="p-2 border">
+                        <span
+                          className={
+                            value.state === "In progress"
+                              ? "text-yellow-500"
+                              : value.state === "Overdue"
+                              ? "text-red-500"
+                              : "text-green-500"
+                          }
+                        >
+                          {value.state}
+                        </span>
+                      </td>
                       <td className="p-2 border">
                         {value.completedDate
                           ? `${ToDoService.getDate(

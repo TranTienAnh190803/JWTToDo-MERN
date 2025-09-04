@@ -37,77 +37,81 @@ export default function Registration() {
   };
 
   return (
-    <>
-      <form onSubmit={handleRegister}>
-        <h1 className="text-3xl font-bold">Registration</h1>
-        <div>
-          <div>
-            <label>Fullname: </label>
+    <div className="h-screen flex justify-center items-center bg-[url('assets/Bunny.jpg')] bg-cover bg-center">
+      <form
+        onSubmit={handleRegister}
+        className="border-2 rounded-2xl p-8 bg-white/50"
+      >
+        <h1 className="text-5xl font-bold text-center">Registration</h1>
+        <hr className="mt-3 mb-5" />
+        <div className="my-3">
+          <div className="flex justify-between items-center my-3">
+            <label className="font-medium mr-5">Fullname: </label>
             <input
               type="text"
               name="fullname"
-              className="border"
+              className="border px-2 py-1 w-80"
               onChange={handleInputChange}
             />
           </div>
-          <div>
-            <label>Username: </label>
+          <div className="flex justify-between items-center my-3">
+            <label className="font-medium mr-5">Username: </label>
             <input
               type="text"
               name="username"
-              className="border"
+              className="border px-2 py-1 w-80"
               onChange={handleInputChange}
             />
           </div>
-          <div>
-            <label>Age: </label>
+          <div className="flex justify-between items-center my-3">
+            <label className="font-medium mr-5">Age: </label>
             <input
               type="number"
               name="age"
-              className="border"
+              className="border px-2 py-1 w-80"
               onChange={handleInputChange}
             />
           </div>
-          <div>
-            <label>Address: </label>
+          <div className="flex justify-between items-center my-3">
+            <label className="font-medium mr-5">Address: </label>
             <input
               type="text"
               name="address"
-              className="border"
+              className="border px-2 py-1 w-80"
               onChange={handleInputChange}
             />
           </div>
-          <div>
-            <label>Password: </label>
+          <div className="flex justify-between items-center my-3">
+            <label className="font-medium mr-5">Password: </label>
             <input
               type="password"
               name="password"
-              className="border"
+              className="border px-2 py-1 w-80"
               onChange={handleInputChange}
             />
           </div>
-          <div>
-            <label>Confirmed Password: </label>
+          <div className="flex justify-between items-center my-3">
+            <label className="font-medium mr-5">Confirmed Password: </label>
             <input
               type="password"
               name="confirmedPassword"
-              className="border"
+              className="border px-2 py-1 w-80"
               onChange={handleInputChange}
             />
           </div>
         </div>
         <div>
-          <p>
+          <p className="my-5">
             Already Have An Account.{" "}
             <Link to={"/login"} className="text-purple-500 hover:text-sky-500">
               Login
             </Link>
           </p>
-          <button className="border p-3 hover:bg-gray-500 hover:text-gray-50 cursor-pointer">
+          <button className="w-full border p-3 bg-gray-800 text-white hover:bg-gray-500 hover:text-black cursor-pointer">
             Register
           </button>
         </div>
       </form>
-    </>
+    </div>
   );
 }
